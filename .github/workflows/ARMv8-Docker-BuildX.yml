@@ -9,7 +9,7 @@ env:
   REPO_URL: https://github.com/zhudpos/lede
   REPO_BRANCH: master
   DOCKER_BUILD: buildImageX.sh
-  DOCKER_IMAGE: summary/openwrt-aarch64
+  DOCKER_IMAGE: zhudpos/openwrt-aarch64
 
 jobs:
   build:
