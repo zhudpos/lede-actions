@@ -102,6 +102,10 @@ svn co https://github.com/haiibo/packages/trunk/wrtbwmon package/wrtbwmon
 # svn co https://github.com/sbwml/luci-app-alist/trunk/luci-app-alist package/luci-app-alist
 # svn co https://github.com/sbwml/luci-app-alist/trunk/alist package/alist
 
+# iStore
+svn co https://github.com/linkease/istore-ui/trunk/app-store-ui package/app-store-ui
+svn co https://github.com/linkease/istore/trunk/luci package/istore
+
 # 设置向导
 # svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-wizard package/luci-app-wizard
 # sed -i 's/"admin"/"admin", "system"/g' package/luci-app-wizard/files/luci/controller/wizard.lua
@@ -110,11 +114,6 @@ svn co https://github.com/haiibo/packages/trunk/wrtbwmon package/wrtbwmon
 svn co https://github.com/haiibo/packages/trunk/luci-app-onliner package/luci-app-onliner
 sed -i '/bin\/sh/a\uci set nlbwmon.@nlbwmon[0].refresh_interval=2s' package/lean/default-settings/files/zzz-default-settings
 sed -i '/nlbwmon/a\uci commit nlbwmon' package/lean/default-settings/files/zzz-default-settings
-
-# golang
-# sed -i 's/GO_VERSION_MAJOR_MINOR:=.*/GO_VERSION_MAJOR_MINOR:=1.19/g' feeds/packages/lang/golang/golang/Makefile
-# sed -i 's/GO_VERSION_PATCH:=.*/GO_VERSION_PATCH:=2/g' feeds/packages/lang/golang/golang/Makefile
-# sed -i 's/PKG_HASH:=.*/PKG_HASH:=2ce930d70a931de660fdaf271d70192793b1b240272645bf0275779f6704df6b/g' feeds/packages/lang/golang/golang/Makefile
 
 # 修改版本为编译日期
 date_version=$(date +"%Y.%m.%d")
