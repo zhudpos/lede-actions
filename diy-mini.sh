@@ -31,25 +31,25 @@ svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-
 # svn co https://github.com/tianiue/luci-app-bypass/trunk/luci-app-bypass package/luci-app-bypass
 # svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
 # svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-passwall package/luci-app-passwall
-svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
-# svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
+# svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
+svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
 
 # 科学上网插件依赖
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook package/brook
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/chinadns-ng package/chinadns-ng
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/dns2socks package/dns2socks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/dns2tcp package/dns2tcp
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/hysteria package/hysteria
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ipt2socks package/ipt2socks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/microsocks package/microsocks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/naiveproxy package/naiveproxy
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/pdnsd-alt package/pdnsd-alt
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/sagernet-core package/sagernet-core
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks package/ssocks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping package/tcping
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go package/trojan-go
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus package/trojan-plus
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-geodata package/v2ray-geodata
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook package/brook
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/chinadns-ng package/chinadns-ng
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/dns2socks package/dns2socks
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/dns2tcp package/dns2tcp
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/hysteria package/hysteria
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ipt2socks package/ipt2socks
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/microsocks package/microsocks
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/naiveproxy package/naiveproxy
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/pdnsd-alt package/pdnsd-alt
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/sagernet-core package/sagernet-core
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks package/ssocks
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping package/tcping
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go package/trojan-go
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus package/trojan-plus
+#svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-geodata package/v2ray-geodata
 svn co https://github.com/fw876/helloworld/trunk/simple-obfs package/simple-obfs
 svn co https://github.com/fw876/helloworld/trunk/v2ray-core package/v2ray-core
 svn co https://github.com/fw876/helloworld/trunk/v2ray-plugin package/v2ray-plugin
@@ -76,17 +76,24 @@ git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config package/l
 # sed -i "s|opt/kernel|https://github.com/ophub/kernel/tree/main/pub/stable|g" package/luci-app-amlogic/root/etc/config/amlogic
 # sed -i "s|ARMv8|ARMv8_MINI|g" package/luci-app-amlogic/root/etc/config/amlogic
 
+# MosDNS
+# svn co https://github.com/sbwml/luci-app-mosdns/trunk/luci-app-mosdns package/luci-app-mosdns
+# svn co https://github.com/sbwml/luci-app-mosdns/trunk/mosdns package/mosdns
+
 # 流量监控
 svn co https://github.com/haiibo/packages/trunk/luci-app-wrtbwmon package/luci-app-wrtbwmon
 svn co https://github.com/haiibo/packages/trunk/wrtbwmon package/wrtbwmon
 
 # 在线用户
-git clone --depth 1 https://github.com/haiibo/luci-app-onliner package/luci-app-onliner
+svn co https://github.com/haiibo/packages/trunk/luci-app-onliner package/luci-app-onliner
 sed -i '/bin\/sh/a\uci set nlbwmon.@nlbwmon[0].refresh_interval=2s' package/lean/default-settings/files/zzz-default-settings
 sed -i '/nlbwmon/a\uci commit nlbwmon' package/lean/default-settings/files/zzz-default-settings
 
+# 调整 x86 型号只显示 CPU 型号
+sed -i 's/${g}.*/${a}${b}${c}${d}${e}${f}/g' package/lean/autocore/files/x86/autocore
+
 # 修改版本为编译日期
-date_version=$(date +"%Y.%m.%d")
+date_version=$(date +"%y.%m.%d")
 orig_version=$(cat "package/lean/default-settings/files/zzz-default-settings" | grep DISTRIB_REVISION= | awk -F "'" '{print $2}')
 sed -i "s/${orig_version}/R${date_version} by zhudpos/g" package/lean/default-settings/files/zzz-default-settings
 
@@ -111,7 +118,7 @@ sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/luasrc/view/dock
 # sed -i 's/vpn/services/g' feeds/luci/applications/luci-app-zerotier/luasrc/view/zerotier/zerotier_status.htm
 
 # 修改插件名字
-sed -i 's/"带宽监控"/"监控"/g' `grep "带宽监控" -rl ./`
+# sed -i 's/"带宽监控"/"监控"/g' `grep "带宽监控" -rl ./`
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
