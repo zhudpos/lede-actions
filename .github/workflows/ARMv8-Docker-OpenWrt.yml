@@ -18,8 +18,7 @@ env:
   REPO_BRANCH: master
   CONFIG_FILE: configs/armv8-docker.config
   DIY_SCRIPT: diy-script.sh
-  UPLOAD_BIN_DIR: false
-  FIRMWARE_RELEASE: true
+  CLASH_KERNEL: arm64
   FIRMWARE_TAG: ARMv8_Docker
   TZ: Asia/Shanghai
 
