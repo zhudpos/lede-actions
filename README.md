@@ -13,7 +13,7 @@
 
 ## 项目说明 [![](https://img.shields.io/badge/-项目基本介绍-FFFFFF.svg)](#项目说明-)
 - 固件来源：[![Lean](https://img.shields.io/badge/Lede-Lean-ff69b4.svg?style=flat&logo=appveyor)](https://github.com/zhudpos/lede) [![P3TERX](https://img.shields.io/badge/OpenWrt-P3TERX-blueviolet.svg?style=flat&logo=appveyor)](https://github.com/P3TERX/Actions-OpenWrt) [![Flippy](https://img.shields.io/badge/Package-Flippy-orange.svg?style=flat&logo=appveyor)](https://github.com/unifreq/openwrt_packit) [![zhudpos](https://img.shields.io/badge/Build-zhudpos-32C955.svg?style=flat&logo=appveyor)](https://github.com/zhudpos/lede-actions)
-- 项目使用 Github Actions 拉取 [Lean](https://github.com/zhudpos/lede) 的 Openwrt 源码仓库进行云编译
+- 项目使用 Github Actions 拉取 [zhudpos](https://github.com/zhudpos/lede) 的 Openwrt 源码仓库进行云编译
 - 固件默认管理地址：`10.0.0.1` 默认用户：`root` 默认密码：`password`
 - 提供适配于 ARMv8 电视盒子、Rockchip 平台、树莓派以及 X86 平台设备的 OpenWrt 固件
 - ARMv8 盒子固件分为 [Mini版](https://github.com/zhudpos/lede-actions/releases/tag/ARMv8_MINI) 和 [Plus版](https://github.com/zhudpos/lede-actions/releases/tag/ARMv8_PLUS)，Mini 精简版以科学上网为主，Plus 多功能版插件多适合折腾
@@ -47,7 +47,7 @@
 
 
 ## 鸣谢 [![](https://img.shields.io/badge/-跪谢各大佬-FFFFFF.svg)](#鸣谢-)
-| [ImmortalWrt](https://github.com/immortalwrt) | [zhudpos](https://github.com/zhudpos) | [P3TERX](https://github.com/P3TERX) | [Flippy](https://github.com/unifreq) |
+| [ImmortalWrt](https://github.com/immortalwrt) | [coolsnowwolf](https://github.com/coolsnowwolf) | [P3TERX](https://github.com/P3TERX) | [Flippy](https://github.com/unifreq) |
 | :-------------: | :-------------: | :-------------: | :-------------: |
 | <img width="100" src="https://avatars.githubusercontent.com/u/53193414"/> | <img width="100" src="https://avatars.githubusercontent.com/u/31687149"/> | <img width="100" src="https://avatars.githubusercontent.com/u/25927179"/> | <img width="100" src="https://avatars.githubusercontent.com/u/39355261"/> |
 | [Ophub](https://github.com/ophub) | [SuLingGG](https://github.com/SuLingGG) | [QiuSimons](https://github.com/QiuSimons) | [IvanSolis1989](https://github.com/IvanSolis1989) |
