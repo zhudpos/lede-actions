@@ -39,12 +39,7 @@ svn export https://github.com/syb999/openwrt-19.07.1/trunk/package/network/servi
 
 # 科学上网插件
 git clone --depth=1 https://github.com/fw876/helloworld package/luci-app-ssr-plus
-git clone --depth=1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
 git clone --depth=1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
-git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/openwrt-passwall
-svn export https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-passwall package/luci-app-passwall
-svn export https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
-svn export https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
 
 # Themes
 git clone --depth=1 -b 18.06 https://github.com/kiddin9/luci-theme-edge package/luci-theme-edge
@@ -54,12 +49,6 @@ git clone --depth=1 https://github.com/xiaoqingfengATGH/luci-theme-infinityfreed
 
 # 更改 Argon 主题背景
 cp -f $GITHUB_WORKSPACE/images/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
-
-# 晶晨宝盒
-svn export https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
-sed -i "s|firmware_repo.*|firmware_repo 'https://github.com/zhudpos/lede-actions'|g" package/luci-app-amlogic/root/etc/config/amlogic
-# sed -i "s|kernel_path.*|kernel_path 'https://github.com/ophub/kernel'|g" package/luci-app-amlogic/root/etc/config/amlogic
-sed -i "s|ARMv8|ARMv8_PLUS|g" package/luci-app-amlogic/root/etc/config/amlogic
 
 # SmartDNS
 git clone --depth=1 -b lede https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
@@ -105,11 +94,6 @@ sed -i 's/"admin"/"admin", "services"/g' package/luci-app-dockerman/luasrc/contr
 sed -i 's/"admin"/"admin", "services"/g; s/admin\//admin\/services\//g' package/luci-app-dockerman/luasrc/model/cbi/dockerman/*.lua
 sed -i 's/admin\//admin\/services\//g' package/luci-app-dockerman/luasrc/view/dockerman/*.htm
 sed -i 's|admin\\|admin\\/services\\|g' package/luci-app-dockerman/luasrc/view/dockerman/container.htm
-
-# 调整 V2ray服务器 到 VPN 菜单
-# sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/controller/*.lua
-# sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/model/cbi/v2ray_server/*.lua
-# sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/view/v2ray_server/*.htm
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
