@@ -35,6 +35,10 @@ env:
   UPLOAD_BIN_DIR: false
   FIRMWARE_RELEASE: true
   FIRMWARE_TAG: RaspberryPi3
+  PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+  WE_COM_BOT_TOKEN: ${{ secrets.WE_COM_BOT_TOKEN }}
   TZ: Asia/Shanghai
 
 jobs:
@@ -364,16 +368,16 @@ jobs:
       run: |
         if [[ "${{ env.INFORMATION_NOTICE }}" == "TG" ]]; then
           if [[ "${{steps.generate.outputs.status}}" == 'success' ]]; then
-            curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 主人💕：您的固件【${{env.FIRMWARE_TAG}}】已经编译成功！($(date +%Y年%m月%d号%H时%M分))💐" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+            curl -k --data chat_id="${{ env.TELEGRAM_CHAT_ID }}" --data "text=🎉 主人💕：您的固件【${{env.FIRMWARE_TAG}}】已经编译成功！($(date +%Y年%m月%d号%H时%M分))💐" "https://api.telegram.org/bot${{ env.TELEGRAM_BOT_TOKEN }}/sendMessage"
           fi
         fi
         if [[ "${{ env.INFORMATION_NOTICE }}" == "PUSH" ]]; then
           if [[ "${{steps.generate.outputs.status}}" == 'success' ]]; then
-            curl -k --data token="${{ secrets.PUSH_PLUS_TOKEN }}" --data title="固件编译成功" --data "content=🎉 主人💕：您的固件【${{env.FIRMWARE_TAG}}】已经完成编译！($(date +%Y年%m月%d号%H时%M分))💐" "http://www.pushplus.plus/send"
+            curl -k --data token="${{ env.PUSH_PLUS_TOKEN }}" --data title="固件编译成功" --data "content=🎉 主人💕：您的固件【${{env.FIRMWARE_TAG}}】已经完成编译！($(date +%Y年%m月%d号%H时%M分))💐" "http://www.pushplus.plus/send"
           fi
         fi
         if [[ "${{ env.INFORMATION_NOTICE }}" == "WeCom" ]]; then
           if [[ "${{steps.generate.outputs.status}}" == 'success' ]]; then
-            curl -k -d '{"msgtype": "text","text": {"content": "🎉 主人💕：您的固件【${{env.FIRMWARE_TAG}}】已经编译成功！($(date +%Y年%m月%d号%H时%M分))💐"}}' "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${{ secrets.WE_COM_BOT_TOKEN }}"
+            curl -k -d '{"msgtype": "text","text": {"content": "🎉 主人💕：您的固件【${{env.FIRMWARE_TAG}}】已经编译成功！($(date +%Y年%m月%d号%H时%M分))💐"}}' "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${{ env.WE_COM_BOT_TOKEN }}"
           fi
         fi
