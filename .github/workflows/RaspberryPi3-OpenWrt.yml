@@ -360,7 +360,7 @@ jobs:
           ${{ env.VERSION_INFO }}
 
     - name: information notice
-      if: env.PUSH_PLUS_TOKEN && env.INFORMATION_NOTICE == 'PUSH' || env.TELEGRAM_BOT_TOKEN && env.INFORMATION_NOTICE == 'TG' || env.TELEGRAM_BOT_TOKEN && env.INFORMATION_NOTICE == 'WeCom'
+      if: env.PUSH_PLUS_TOKEN && env.INFORMATION_NOTICE == 'PUSH' || env.TELEGRAM_BOT_TOKEN && env.INFORMATION_NOTICE == 'TG' || env.WE_COM_BOT_TOKEN && env.INFORMATION_NOTICE == 'WeCom'
       run: |
         if [[ "${{ env.INFORMATION_NOTICE }}" == "TG" ]]; then
           if [[ "${{steps.generate.outputs.status}}" == 'success' ]]; then
@@ -374,6 +374,6 @@ jobs:
         fi
         if [[ "${{ env.INFORMATION_NOTICE }}" == "WeCom" ]]; then
           if [[ "${{steps.generate.outputs.status}}" == 'success' ]]; then
-            curl -k -d '{"msgtype": "text","text": {"content": "🎉 主人💕：您的固件【${{env.FIRMWARE_TAG}}】已经编译成功！($(date +%Y年%m月%d号%H时%M分))💐"}}' "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${{ secrets.WeCom }}"
+            curl -k -d '{"msgtype": "text","text": {"content": "🎉 主人💕：您的固件【${{env.FIRMWARE_TAG}}】已经编译成功！($(date +%Y年%m月%d号%H时%M分))💐"}}' "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${{ secrets.WE_COM_BOT_TOKEN }}"
           fi
-        fi  
+        fi
