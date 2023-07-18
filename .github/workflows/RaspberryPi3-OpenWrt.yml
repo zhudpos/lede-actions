@@ -10,6 +10,17 @@ name: RaspberryPi3 OpenWrt
 
 on:
   workflow_dispatch:
+    inputs:
+      INFORMATION_NOTICE:
+        description: '编译结果通知'
+        required: true
+        default: '关闭'
+        type: choice
+        options:
+          - '关闭'
+          - 'Telegram'
+          - 'Pushplus'
+          - 'WeCom'
   schedule:
     - cron: 0 16 * * *
 
@@ -347,3 +358,22 @@ jobs:
           默认 IP：10.0.0.1 默认密码：password
           当前使用版本:【编译前的最后一次[➦主源码](https://github.com/zhudpos/lede)更新记录】
           ${{ env.VERSION_INFO }}
+
+    - name: information notice
+      if: env.PUSH_PLUS_TOKEN && env.INFORMATION_NOTICE == 'PUSH' || env.TELEGRAM_BOT_TOKEN && env.INFORMATION_NOTICE == 'TG' || env.TELEGRAM_BOT_TOKEN && env.INFORMATION_NOTICE == 'WeCom'
+      run: |
+        if [[ "${{ env.INFORMATION_NOTICE }}" == "TG" ]]; then
+          if [[ "${{steps.generate.outputs.status}}" == 'success' ]]; then
+            curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 主人💕：您的固件【${{env.FIRMWARE_TAG}}】已经编译成功！($(date +%Y年%m月%d号%H时%M分))💐" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+          fi
+        fi
+        if [[ "${{ env.INFORMATION_NOTICE }}" == "PUSH" ]]; then
+          if [[ "${{steps.generate.outputs.status}}" == 'success' ]]; then
+            curl -k --data token="${{ secrets.PUSH_PLUS_TOKEN }}" --data title="固件编译成功" --data "content=🎉 主人💕：您的固件【${{env.FIRMWARE_TAG}}】已经完成编译！($(date +%Y年%m月%d号%H时%M分))💐" "http://www.pushplus.plus/send"
+          fi
+        fi
+        if [[ "${{ env.INFORMATION_NOTICE }}" == "WeCom" ]]; then
+          if [[ "${{steps.generate.outputs.status}}" == 'success' ]]; then
+            curl -k -d '{"msgtype": "text","text": {"content": "🎉 主人💕：您的固件【${{env.FIRMWARE_TAG}}】已经编译成功！($(date +%Y年%m月%d号%H时%M分))💐"}}' "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${{ secrets.WeCom }}"
+          fi
+        fi  
