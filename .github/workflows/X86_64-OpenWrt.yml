@@ -35,6 +35,7 @@ env:
   UPLOAD_BIN_DIR: false
   FIRMWARE_RELEASE: true
   FIRMWARE_TAG: X86_64
+  INFORMATION_NOTICE: ${{ github.event.inputs.INFORMATION_NOTICE }}
   PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
   TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
   TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -363,7 +364,7 @@ jobs:
           当前使用版本:【编译前的最后一次[➦主源码](https://github.com/zhudpos/lede)更新记录】
           ${{ env.VERSION_INFO }}
           
-    - name: Notice build results
+    - name: Notice Build Results
       if: env.PUSH_PLUS_TOKEN && env.INFORMATION_NOTICE == 'PUSH' || env.TELEGRAM_BOT_TOKEN && env.INFORMATION_NOTICE == 'TG' || env.WE_COM_BOT_TOKEN && env.INFORMATION_NOTICE == 'WeCom'
       run: |
         if [[ "${{ env.INFORMATION_NOTICE }}" == "TG" ]]; then
