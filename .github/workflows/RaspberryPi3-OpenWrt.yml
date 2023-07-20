@@ -10,6 +10,17 @@ name: RaspberryPi3 OpenWrt
 
 on:
   workflow_dispatch:
+    inputs:
+      INFORMATION_NOTICE:
+        description: '编译结果通知'
+        required: true
+        default: '关闭'
+        type: choice
+        options:
+          - '关闭'
+          - 'Telegram'
+          - 'Pushplus'
+          - 'WeCom'
   schedule:
     - cron: 0 16 * * *
 
@@ -24,6 +35,11 @@ env:
   UPLOAD_BIN_DIR: false
   FIRMWARE_RELEASE: true
   FIRMWARE_TAG: RaspberryPi3
+  INFORMATION_NOTICE: ${{ github.event.inputs.INFORMATION_NOTICE }}
+  PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+  WE_COM_BOT_TOKEN: ${{ secrets.WE_COM_BOT_TOKEN }}
   TZ: Asia/Shanghai
 
 jobs:
@@ -347,3 +363,22 @@ jobs:
           默认 IP：10.0.0.1 默认密码：password
           当前使用版本:【编译前的最后一次[➦主源码](https://github.com/zhudpos/lede)更新记录】
           ${{ env.VERSION_INFO }}
+
+    - name: Notice Build Results
+      if: env.PUSH_PLUS_TOKEN && env.INFORMATION_NOTICE == 'PUSH' || env.TELEGRAM_BOT_TOKEN && env.INFORMATION_NOTICE == 'TG' || env.WE_COM_BOT_TOKEN && env.INFORMATION_NOTICE == 'WeCom'
+      run: |
+        if [[ "${{ env.INFORMATION_NOTICE }}" == "TG" ]]; then
+          if [[ "${{steps.generate.outputs.status}}" == 'success' ]]; then
+            curl -k --data chat_id="${{ env.TELEGRAM_CHAT_ID }}" --data "text=【${{env.FIRMWARE_TAG}}】固件编译成功！" "https://api.telegram.org/bot${{ env.TELEGRAM_BOT_TOKEN }}/sendMessage"
+          fi
+        fi
+        if [[ "${{ env.INFORMATION_NOTICE }}" == "PUSH" ]]; then
+          if [[ "${{steps.generate.outputs.status}}" == 'success' ]]; then
+            curl -k --data token="${{ env.PUSH_PLUS_TOKEN }}" --data title="固件编译成功" --data "content=【${{env.FIRMWARE_TAG}}】固件编译成功！" "http://www.pushplus.plus/send"
+          fi
+        fi
+        if [[ "${{ env.INFORMATION_NOTICE }}" == "WeCom" ]]; then
+          if [[ "${{steps.generate.outputs.status}}" == 'success' ]]; then
+            curl -k -d '{"msgtype": "text","text": {"content": "【${{env.FIRMWARE_TAG}}】固件编译成功！"}}' "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${{ env.WE_COM_BOT_TOKEN }}"
+          fi
+        fi
