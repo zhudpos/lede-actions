@@ -48,7 +48,6 @@ jobs:
 
     outputs:
       OPENWRT_PATH: ${{ steps.clone.outputs.OPENWRT_PATH }}
-      VERSION_INFO: ${{ steps.clone.outputs.VERSION_INFO }}
       CURRENT_BRANCH: ${{ steps.env.outputs.CURRENT_BRANCH }}
       SOURCE_REPO: ${{ steps.env.outputs.SOURCE_REPO }}
       DEVICE_TARGET: ${{ steps.env.outputs.DEVICE_TARGET }}
@@ -78,9 +77,6 @@ jobs:
         cd workspace/openwrt
         echo "OPENWRT_PATH=$PWD" >> $GITHUB_ENV
         echo "OPENWRT_PATH=$(echo $PWD)" >> $GITHUB_OUTPUT
-        export VERSION_INFO=$(git show -s --date=short --format="Author: %an<br/>date: %cd<br/>commit: %s<br/>commit hash: %H")
-        echo "VERSION_INFO=$VERSION_INFO" >> $GITHUB_ENV
-        echo "VERSION_INFO=$(echo $VERSION_INFO)" >> $GITHUB_OUTPUT
 
     - name: Generate Toolchain Config
       run: |
@@ -184,7 +180,6 @@ jobs:
 
     env:
       OPENWRT_PATH: ${{ needs.Toolchain.outputs.OPENWRT_PATH }}
-      VERSION_INFO: ${{ needs.Toolchain.outputs.VERSION_INFO }}
       CURRENT_BRANCH: ${{ needs.Toolchain.outputs.CURRENT_BRANCH }}
       SOURCE_REPO: ${{ needs.Toolchain.outputs.SOURCE_REPO }}
       DEVICE_TARGET: ${{ needs.Toolchain.outputs.DEVICE_TARGET }}
@@ -361,8 +356,6 @@ jobs:
           **This is OpenWrt Firmware for ${{ env.FIRMWARE_TAG }}**
           * 这是 ${{ env.FIRMWARE_TAG }} 使用的 OpenWrt 固件
           默认 IP：10.0.0.1 默认密码：password
-          当前使用版本:【编译前的最后一次[➦主源码](https://github.com/zhudpos/lede)更新记录】
-          ${{ env.VERSION_INFO }}
           
     - name: Notice Build Results
       if: env.PUSH_PLUS_TOKEN && env.INFORMATION_NOTICE == 'PUSH' || env.TELEGRAM_BOT_TOKEN && env.INFORMATION_NOTICE == 'TG' || env.WE_COM_BOT_TOKEN && env.INFORMATION_NOTICE == 'WeCom'
