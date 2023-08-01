@@ -12,12 +12,12 @@ on:
   workflow_dispatch:
     inputs:
       INFORMATION_NOTICE:
-        description: '编译结果通知'
+        description: 'build results notice'
         required: true
-        default: '关闭'
+        default: 'close'
         type: choice
         options:
-          - '关闭'
+          - 'close'
           - 'Telegram'
           - 'Pushplus'
           - 'WeCom'
