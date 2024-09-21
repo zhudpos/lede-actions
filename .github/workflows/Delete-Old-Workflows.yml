@@ -7,7 +7,7 @@ on:
 
 jobs:
   Cleaning:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
 
     steps:
     - name: Delete Old Workflows
