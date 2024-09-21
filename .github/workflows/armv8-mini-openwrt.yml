@@ -21,7 +21,7 @@ env:
 
 jobs:
   Build:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
 
     steps:
